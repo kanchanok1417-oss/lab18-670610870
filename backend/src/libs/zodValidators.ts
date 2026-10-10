@@ -88,6 +88,17 @@ export const zEnrollmentBody = z.object({
   courseId: zCourseId,
 });
 
+export const zEnrollmentPutBody = z
+  .object({
+    studentId: zStudentId,
+    courseId: zCourseId,
+    newCourseId: zCourseId,
+  })
+  .refine((data) => data.newCourseId !== data.courseId, {
+    message: "New course must be different from the current course.",
+    path: ["newCourseId"],
+  });
+
 ////// User Validators //////
 export const zUserBody = z.object({
   username: zFirstName,
